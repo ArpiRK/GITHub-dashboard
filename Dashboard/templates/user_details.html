@@ -1,0 +1,71 @@
+@ -0,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Details</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='user_details.css') }}">
+    <style>
+      .scroll-list {
+        max-height: 200px; /* Set the desired height for the list */
+        overflow-y: auto; /* Add scroll for overflow */
+        border: 1px solid #ccc; /* Optional: Add a border for styling */
+      }
+    </style> 
+  </head>
+  <body>
+    <h1>User Details</h1>
+
+    {% if user_details %}
+    <p><strong>Username:</strong> {{ user_details.login }}</p>
+    <p><strong>Name:</strong> {{ user_details.name }}</p>
+    <p><strong>Location:</strong> {{ user_details.location }}</p>
+    <p><strong>Public Repositories:</strong> {{ user_details.public_repos }}</p>
+    <p><strong>Followers:</strong>
+      {% if user_details.followers %}
+        <ul class = "scroll-list">
+          {% for follower in user_details.followers %}
+            <li>{{ follower.login }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        No followers data available.
+      {% endif %}
+    </p>
+    <p><strong>Total Following:</strong> {{ user_details.following|length }}</p>
+    <p><strong>Following:</strong>
+      {% if user_details.following %}
+        <ul class = "scroll-list">
+          {% for followee in user_details.following %}
+            <li>{{ followee.login }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        Not following anyone.
+      {% endif %}
+    </p>
+    
+    
+    <!-- Add more details as needed -->
+    <img
+      src="{{ user_details.avatar_url }}"
+      alt="User Avatar"
+      style="max-width: 100px; max-height: 100px"
+    />
+    {% else %}
+    <p>Error: Unable to fetch user details.</p>
+    {% endif %}
+
+    
+
+    <form method="post" action="{{ url_for('user_details') }}">
+      <label for="username">Search for User:</label>
+      <input type="text" name="username" id="username" required>
+      <button type="submit">Search</button>
+      <input type="button" value="Click Here" onclick="window.location.href='http://localhost:5000/repos/cheshire137'" />
+    </form>
+
+  </body>
+</html>

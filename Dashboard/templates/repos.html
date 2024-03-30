@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Repository Details</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='user_details.css') }}"
+    />
+    <style>
+      .scroll-list {
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Repository Details for {{ username }}</h1>
+
+    {% if repositories %}
+    <h2>Repository Names:</h2>
+    <ul class="scroll-list">
+      {% for repo in repositories %}
+      <li>{{ repo }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No repositories available.</p>
+    {% endif %} {% if forks %}
+    <h2>Fork Counts:</h2>
+    <ul class="scroll-list">
+      {% for fork_count in forks %}
+      <li>Fork Count: {{ fork_count }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No fork counts available.</p>
+    {% endif %}
+  </body>
+</html>

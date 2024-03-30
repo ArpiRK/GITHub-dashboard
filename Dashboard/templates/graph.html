@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Git User Data</title>
+  </head>
+  <body>
+    <ul>
+      {% for entry in entries %}
+      <li>
+        <a href="{{ url_for('user', index=loop.index0) }}">{{ entry[1] }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% if selected_entry %}
+    <h1>Details for {{ selected_entry[1] }}</h1>
+    <p><strong>SL no:</strong> {{ selected_entry[0] }}</p>
+    <p><strong>GIT Username:</strong> {{ selected_entry[1] }}</p>
+    <p><strong>Fullname:</strong> {{ selected_entry[2] }}</p>
+    <p><strong>Number of Repos:</strong> {{ selected_entry[3] }}</p>
+    <p><strong>Followers:</strong> {{ selected_entry[4] }}</p>
+    <p><strong>Location:</strong> {{ selected_entry[5] }}</p>
+    {% endif %}
+  </body>
+</html>
