@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Results</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='user_details.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Search Results</h1>
+
+    {% if search_results %} {% if search_results.items %} {% for result in
+    search_results.items %} {% if result.owner.type == 'User' %}
+    <p>User: {{ result.owner.login }}</p>
+    <!-- Display user details as needed -->
+    {% else %}
+    <p><strong>Repository Name:</strong> {{ result.name }}</p>
+    <p><strong>Total Branches:</strong> {{ result.default_branch }}</p>
+    <p>
+      <strong>Total Commits:</strong> {{ get_total_commits(result.owner.login,
+      result.name) }}
+    </p>
+    <p><strong>Total Forks:</strong> {{ result.forks_count }}</p>
+    {% endif %} {% endfor %} {% else %}
+    <p>No results found.</p>
+    {% endif %} {% else %}
+    <p>Error: Unable to fetch search results.</p>
+    {% endif %}
+    <div id="searchResults">
+      {% if user_details %}
+      <h1>User Details</h1>
+      <p><strong>Username:</strong> {{ user_details.login }}</p>
+      <p><strong>Name:</strong> {{ user_details.name }}</p>
+      <p><strong>Location:</strong> {{ user_details.location }}</p>
+      <p><strong>Followers:</strong> {{ user_details.followers }}</p>
+      <p><strong>Following:</strong> {{ user_details.following }}</p>
+      <p>
+        <strong>Total Repositories:</strong> {{ user_details.public_repos }}
+      </p>
+
+      {% if user_details.public_repos > 0 %}
+      <h2>Repositories</h2>
+      <ul>
+        {% for repo in user_details.repositories %}
+        <li>
+          <strong>Repository Name:</strong> {{ repo.name }}<br />
+          <strong>Total Commits:</strong> {{ repo.commits }}<br />
+          <strong>Fork Count:</strong> {{ repo.forks }}<br />
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No repositories available.</p>
+      {% endif %}
+
+      <img
+        src="{{ user_details.avatar_url }}"
+        alt="User Avatar"
+        style="max-width: 100px; max-height: 100px"
+      />
+      {% else %}
+      <p>Error: Unable to fetch user details.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>

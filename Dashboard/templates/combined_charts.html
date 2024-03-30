@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Combined Charts</title>
+  </head>
+  <body>
+    <h1>Combined Charts</h1>
+
+    <div style="display: flex; justify-content: space-around">
+      <div>
+        <h2>Line Chart</h2>
+        <img
+          src="data:image/png;base64,{{ img_base64_line }}" alt="Line Chart"
+        />
+      </div>
+
+      <div>
+        <h2>Bar Chart</h2>
+        <img src="data:image/png;base64,{{ img_base64_bar }}" alt="Bar Chart" />
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,2 +1,0 @@
-# GITHub-dashboard
-SPM project

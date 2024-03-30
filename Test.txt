@@ -1,5 +1,0 @@
-Test
-
-Software project management
-
-This is to test y=the connectivity of Visual Studio code and GIT.

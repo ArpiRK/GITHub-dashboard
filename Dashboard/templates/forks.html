@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Repository Details</title>
+  </head>
+  <body>
+    {% if 'github_username' not in session or 'github_password' not in session
+    %}
+    <p>
+      Please log in to view repository details.
+      <a href="{{ url_for('index') }}">Login</a>
+    </p>
+    {% else %}
+    <h1>Repository Details</h1>
+
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+
+    <form method="post" action="{{ url_for('repo_details') }}">
+      <label for="repo_name">Enter Repository Name:</label>
+      <input type="text" id="repo_name" name="repo_name" required />
+      <input type="submit" value="Submit" />
+    </form>
+
+    {% if repo_details %}
+    <p><strong>Name:</strong> {{ repo_details.name }}</p>
+    <p><strong>Language:</strong> {{ repo_details.language }}</p>
+    <p><strong>Watchers Count:</strong> {{ repo_details.watchers_count }}</p>
+    <p><strong>Forks:</strong> {{ repo_details.forks }}</p>
+    <p><strong>Open Issues:</strong> {{ repo_details.open_issues_count }}</p>
+    <p><strong>Contributors:</strong> {{ repo_details.contributors_url }}</p>
+    <!-- Add more details as needed -->
+    {% else %}
+    <p>No repository details available.</p>
+    {% endif %} {% endif %}
+  </body>
+</html>
